@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="col">
+    <div *ngIf="goodMessage!='' && formExchange.dirty" class="alert alert-success">{{goodMessage}}</div>
+    <div *ngIf="badMessage!='' && formExchange.dirty" class="alert alert-danger">{{badMessage}}</div>
+    <form name="depot" #formExchange="ngForm" (ngSubmit)="formExchange.valid && sendExchange()">
+      <h4>Nouvel Objet</h4>
+
+        <div>
+          <label for="code" class="control-label">ISBN/ Code<span class="requireStar">*</span>: </label>
+          <input type="text" class="form-control" placeholder="Code" id="code" name="code"
+                 [(ngModel)]="model.item.objectID" #itemId="ngModel"
+                 pattern="^\d{13}$" required [ngClass]="{ 'is-invalid': formExchange.submitted && itemId.invalid }">
+
+          <div *ngIf="formExchange.submitted && itemId.untouched && !itemId.dirty" class="alert alert-danger">Le code
+            est obligatoire.
+          </div>
+          <div *ngIf="formExchange.submitted && objectExist == false" class="alert alert-danger">
+            L'ISBN ou le code existe déjà que vous voulez insérer
+              existe déjà.
+            </div>
+          <div *ngIf="formExchange.submitted && itemId.errors!= null && itemId.errors.pattern"
+               class="alert alert-danger">Erreur sur l'ISBN et
+            le code barre
+          </div>
+        </div>
+        <div><label for="title">Titre<span class="requireStar">*</span> : </label>
+          <input type="text" class="form-control" placeholder="Titre" name="title" id="title"
+                 [(ngModel)]="model.item.title" #title="ngModel" required>
+          <div *ngIf="formExchange.submitted && title.untouched && !title.dirty" class="alert alert-danger">
+            <div>Le titre est obligatoire.</div>
+          </div>
+          </div>
+        <div>
+          <label for="type">Type<span class="requireStar">*</span> : </label>
+          <select class="form-control" name="type" id="type" [(ngModel)]="model.item.type" required>
+            <option name="typeLivre" selected>Book</option>
+            <option name="typeGames">Game</option>
+          </select>
+        </div>
+        <div><label for="description">Description<span class="requireStar">*</span> : </label><textarea
+          class="form-control" placeholder="Description" name="description" [(ngModel)]="model.item.description"
+          id="description" #description="ngModel" required></textarea>
+          <div *ngIf="formExchange.submitted && description.untouched && !description.dirty" class="alert alert-danger">
+            <div>La description est obligatoire.</div>
+          </div>
+        </div>
+        <div class="image-upload">
+          <div>L'image doit être au format jpeg</div>
+          <img [src]="imageSrc" style="max-width:300px;max-height:300px" />
+          <input name="imageUrl" type="file" accept="image/jpeg" (change)="handleInputChange($event)" />
+        </div>
+        <h5>Expédition<span class="requireStar">*</span> : </h5>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="yes" name="relais" value=true checked
+                   [(ngModel)]="model.relais">
+            <label class="form-check-label" for="Yes">Dans un point relais </label>
+          </div>
+          <div class="form-check" >
+            <input type="radio" class="form-check-input" id="no" name="relais" value=false [(ngModel)]="model.relais">
+            <label class="form-check-label" for="No">Par la poste </label>
+          </div>
+        <div class="col text-center">
+          <button class="btn btn-primary buttonCenter" type="submit">Déposer</button>
+        </div>
+        </form>
+      </div>
+    </div>

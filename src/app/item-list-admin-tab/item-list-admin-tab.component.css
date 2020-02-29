@@ -1,0 +1,9 @@
+img {
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+
+.centrerButton {
+  margin: auto;
+}

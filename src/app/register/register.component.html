@@ -1,0 +1,87 @@
+<br>
+<div class="container card" id="registerStyle">
+  <img id="imageBookSwitchRegister" src="assets/BookSwitchBig.png" alt="Logo" class="center">
+    <div class="row">
+        <div class="col">
+            <form name="form">
+                <br>
+                <h4 class="text-center">Connexion</h4>
+                <div class="one" [innerHtml]="htmlToAdd"></div>
+                <p><label for="connexionLogin">Identifiant : </label><input type="text" class="form-control" id="connexionLogin" name="connexionLogin" placeholder="Identifiant" [(ngModel)]="loginUser.login" required></p>
+                <p><label for="connexionPassword">Mot de passe : </label><input type="password" class="form-control" id="connexionPassword" name="connexionPassword" placeholder="Mot de passe" [(ngModel)]="loginUser.password" required></p>
+                <div class="col text-center">
+                    <!-- le (click) est une directive angular, qui va appler la methode connexion dans le .ts-->
+                    <button class="btn btn-primary buttonCenter" (click)="connexion()">Connexion</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+
+          <form name="form" (ngSubmit)="myForm.valid && register()" #myForm="ngForm">
+                <br>
+                <h4 class="text-center">Inscription</h4>
+                <div *ngIf="goodMessage!=''" class="alert alert-success">{{goodMessage}}</div>
+            <div *ngIf="badMessage!=''" class="alert alert-danger">{{badMessage}}</div>
+                <div class="form-group"><label for="login">Identifiant : </label><input type="text" class="form-control" #login="ngModel" placeholder="Identifiant" name="login" id="login" [(ngModel)]="modelUser.login" required>
+                  <div *ngIf="(login.invalid && (myForm.submitted || login.touched) || loginNotExistInDB == '')"
+                       class="alert alert-danger">
+                    <div *ngIf="loginNotExistInDB =='' && login.touched">Le login que vous voulez utiliser existe
+                      déjà.
+                    </div>
+                    <div *ngIf="login.errors.required"> L'identifiant est obligatoire.</div>
+                  </div>
+                </div>
+            <div class="form-group"><label for="email">Email : </label><input type="text" class="form-control"
+                                                                              placeholder="Email" name="email"
+                                                                              id="email" email
+                                                                              [(ngModel)]="modelUser.email"
+                                                                              [ngClass]="{ 'is-invalid': myForm.submitted && email.invalid }"
+                                                                              required #email="ngModel">
+                    <div *ngIf="(email.invalid && (myForm.submitted || email.touched))" class="alert alert-danger">
+                      <div *ngIf="email.errors?.email">Cet adresse email n'est pas valide et doit être sous le format example@test.com.</div>
+                      <div *ngIf="email.errors.required"> L'email est obligatoire. </div>
+                    </div>
+                    <div *ngIf="emailNotExistInDB ==''" class="alert alert-danger">
+                      <div>L'email que vous voulez utiliser existe déjà.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe : </label>
+                    <input type="password" [(ngModel)]="modelUser.password" name="password" id="password" placeholder="Mot de passe" class="form-control" required #password="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off"/>
+                    <div *ngIf="password.invalid && (myForm.submitted || password.touched)" class="alert alert-danger">
+                      <div *ngIf="password.errors.required"> Le mot de passe est obligatoire. </div>
+                      <div *ngIf="password.errors.pattern"> Votre mot de passe doit contenir au minimum un chiffre, une
+                        lettre majuscule, une lettre minuscule et au moins 8 à plus caractères.
+                      </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="confirmpassword">Confirmer mot de passe : </label>
+                  <input type="password" [(ngModel)]="checkMdp" name="confirmpassword" id="confirmpassword"
+                         placeholder="Confirmer votre mot de passe" class="form-control" required
+                         #confirmationPassword="ngModel" autocomplete="off"/>
+                  <div *ngIf=" confirmationPassword.invalid && (myForm.submitted || confirmationPassword.touched)"
+                       class="alert alert-danger">
+                    <div *ngIf="confirmationPassword.errors.required"> La confirmation du mot de passe est
+                      obligatoire.
+                    </div>
+                    </div>
+                  <div
+                    *ngIf="confirmationPassword.touched && password.touched && confirmationPassword.dirty && password.dirty && confirmationPassword.value != password.value && confirmationPassword.value!=''"
+                    class="alert alert-danger">
+                    <div> Mot de passe et la confirmation du mot de passe ne correpondent pas.</div>
+                  </div>
+                </div>
+                <div class="col text-center">
+                    <button class="btn btn-primary buttonCenter" name="myForm" type="submit">Inscription</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+

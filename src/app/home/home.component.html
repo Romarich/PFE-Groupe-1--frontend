@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <form class="form-inline">
+        <input (keyup)="onKeyInput($event)" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+      <br>
+      <div class="form-check">
+        <input (click)="checkIsFavorite()" class="form-check-inline" type="checkbox" id="favorite" [checked]="isFavorite">
+        <label class="form-check-inline" for="favorite">Favoris</label>
+      </div>
+      <div class="form-check">
+        <input (click)="checkIsBook()" class="form-check-inline" type="checkbox" id="book" [checked]="isBook">
+        <label class="form-check-inline" for="book">Livre</label>
+      </div>
+      <div class="form-check">
+        <input (click)="checkIsGame()" class="form-check-inline" type="checkbox" id="game" [checked]="isGame">
+        <label class="form-check-inline" for="game">Jeu</label>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="accordion" id="itemsList">
+        <app-item-list *ngFor="let item of items" [item]="item" [isFavorite]="checkFavorite(item)" (toggleEvent)="toggleChildren()" (favoriteEvent)="modifyFavorite($event)"></app-item-list>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.buttonCenter{
+    width:30%;
+    margin: 0 auto;
+}
+
+#registerStyle{
+  background-color: rgb(240, 240, 240);
+}
+
+#imageBookSwitchRegister {
+  max-width: 30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

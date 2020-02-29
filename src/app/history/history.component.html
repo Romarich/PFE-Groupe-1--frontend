@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+<!--      Filters ? Search with Algolia ?-->
+      <form class="form-inline">
+        <input (keyup)="onKeyInput($event)" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+      <div class="form-check">
+        <input (change)="showTakeCheck($event)" class="form-check-inline" type="checkbox" id="taken" [checked]="showTake">
+        <label class="form-check-inline" for="taken">Retirés</label>
+      </div>
+      <div class="form-check">
+        <input (change)="showGiveCheck($event)" class="form-check-inline" type="checkbox" id="given" [checked]="showGive">
+        <label class="form-check-inline" for="given">Déposés</label>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="accordion" id="exchangedItems">
+        <app-item-data *ngFor="let ex of exchanges" [exchange]="ex" (toggleEvent)="toggleOne()"></app-item-data>
+        <p *ngIf="exchanges?.length === 0"> Aucun échange à afficher</p>
+      </div>
+    </div>
+  </div>
+</div>

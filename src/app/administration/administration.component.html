@@ -1,0 +1,29 @@
+<div id="adminPart" *ngIf="loginService.giveRole() == 'ADMIN'">
+  <div class="row">
+    <input type="text" class="ais-SearchBox-input" (keyup)="onQuery($event)"
+           style="width: 90%; margin:auto;  margin-top:10px;" placeholder="Recherche"/>
+    <ais-instantsearch [config]="configUsers" style="width: 90%; margin:auto;">
+      <br>
+      <ais-configure [searchParameters]="searchParameters"></ais-configure>
+      <ais-hits>
+        <ng-template let-hits="hits">
+          <div *ngFor="let hit of hits">
+            <app-item-list-admin-tab [user]="hit" (toggleEvent)="toggleChildren()"></app-item-list-admin-tab>
+          </div>
+        </ng-template>
+      </ais-hits>
+    </ais-instantsearch>
+  </div>
+  <div class="row">
+    <ais-instantsearch [config]="configItems" style="width: 90%; margin:auto;">
+      <ais-configure [searchParameters]="searchParameters"></ais-configure>
+      <ais-hits>
+        <ng-template let-hits="hits">
+          <div *ngFor="let hit of hits">
+            <app-item-list-admin-tab [item]="hit" (getPicture)="getImage($event)" (toggleEvent)="toggleChildren()"></app-item-list-admin-tab>
+          </div>
+        </ng-template>
+      </ais-hits>
+    </ais-instantsearch>
+  </div>
+</div>

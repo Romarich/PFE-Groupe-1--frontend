@@ -1,0 +1,39 @@
+<div class="card border-info mb-3" *ngIf="display">
+  <div class="card-header">
+    <div class="row">
+      <div class="col">
+        <button (click)="onClick()" class="btn btn-light btn-block" type="button">
+          {{exchange.item.title}}
+        </button>
+      </div>
+      <!--  Card header -->
+      <div class="col-4" *ngIf="datatype!=='none'">
+        <div class="btn-group" role="group">
+
+        </div>
+      </div>
+      <div class="col col-2" *ngIf="datatype!=='none'">
+      </div>
+      <!--  End Card header -->
+    </div>
+  </div>
+  <div class="card-body itemList-item" *ngIf="toggle">
+    <div class="row">
+      <div class="col-3"> <img style='display:block; width:100px;height:100px;' [src]="this.file" alt="Red dot" /></div>
+      <div class="col-9">
+        <div class="row">
+          <div class="col-4">Titre: </div>
+          <div class="col-8">{{exchange.item.title}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">Description: </div>
+          <div class="col-8">{{exchange.item.description}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">{{type}}</div>
+          <div class="col-8">{{exchange.item.objectID}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

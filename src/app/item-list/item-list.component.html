@@ -1,0 +1,53 @@
+<div class="card border-info mb-3" *ngIf="display">
+  <div class="card-header">
+    <div class="row">
+      <div class="col">
+        <button (click)="onItemListClick()" class="btn btn-light btn-block" type="button">
+          {{item.title}}
+        </button>
+      </div>
+      <div class="col-4">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-light" (click)="takeItemOpen()" [disabled]="insuffisentStock || point <= 0">Prendre</button>
+          <button type="button" class="btn btn-light" (click)="giveItemOpen()" [disabled]="toMuchStock">Déposer</button>
+        </div>
+      </div>
+      <div class="col col-1">
+        <ng-container *ngIf="isFavorite; then favorite; else notFavorite"></ng-container>
+        <ng-template #favorite>
+          <button type="button" class="btn" (click)="onModifyFavorite()">
+            <img src="assets/starSelected.png" alt="favoris">
+          </button>
+        </ng-template>
+        <ng-template #notFavorite>
+          <button type="button" class="btn" (click)="onModifyFavorite()">
+            <img src="assets/star.png" alt="favoris">
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="card-body itemList-item" *ngIf="toggle">
+    <div class="row">
+      <div class="col-3"> <img style='display:block; width:100px;height:100px;' [src]=this.file alt="Error"/></div>
+      <div class="col-9">
+        <div class="row">
+          <div class="col-4">Titre: </div>
+          <div class="col-8">{{item.title}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">Description: </div>
+          <div class="col-8">{{item.description}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">Stock: </div>
+          <div class="col-8">{{item.stock}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">{{type}}</div>
+          <div class="col-8">{{item.objectID}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.container > div {
+  margin-top: 5%;
+}
+
+.container > div > form {
+  margin-bottom: 5%;
+}
+
+hr {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 8px auto;
+  height: 0;
+  width: 100%;
+  max-height: 0;
+  line-height: 0;
+  clear: both;
+  border: 1px solid black;
+}

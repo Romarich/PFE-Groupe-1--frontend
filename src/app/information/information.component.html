@@ -1,0 +1,63 @@
+<div class="container">
+  <br>
+  <div class="card row">
+    <div class="card-header alert alert-warning text-center">
+      Remplissez uniquement les champs que vous souhaitez modifier !
+    </div>
+    <div class="col card-body">
+      <div *ngIf="goodMessage!='' && form.dirty" class="alert alert-success">{{goodMessage}}</div>
+      <div *ngIf="badMessage!='' && form.dirty" class="alert alert-danger">{{badMessage}}</div>
+      <form name="information" (ngSubmit)="sendInformation()" #form="ngForm">
+        <div class="form-group"><label for="email">Email : </label><input type="text" class="form-control"
+                                                                          placeholder="Email" name="email"
+                                                                          id="email" email
+                                                                          [(ngModel)]="modelUser.email"
+                                                                          required #email="ngModel">
+
+          <div *ngIf="form.submitted && email.errors?.email" class="alert alert-danger">Cet adresse email n'est pas
+            valide et doit être sous le format
+              example@test.com.
+            </div>
+          <div *ngIf="form.submitted && emailNotExistInDB ==false" class="alert alert-danger">
+            <div>L'email que vous voulez utiliser existe déjà.</div>
+          </div>
+        </div>
+
+
+        <div><label for="mdp">Mot de passe : </label><input type="password" class="form-control"
+                                                            placeholder="Mot de passe" name="mdp" id="mdp"
+                                                            [(ngModel)]="modelUser.password" #passwordMesInfos="ngModel"
+                                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+          <div *ngIf="passwordMesInfos.invalid && (checkMdp==='' || passwordMesInfos.touched)"
+               class="alert alert-danger">
+            <div *ngIf="passwordMesInfos.errors.pattern"> Votre mot de passe doit contenir au minimum un chiffre, une
+              lettre majuscule, une lettre minuscule et au moins 8 à plus caractères.
+            </div>
+          </div>
+        </div>
+        <div><label for="mdp2">Répetez mot de passe : </label><input type="password" class="form-control"
+                                                                     placeholder="Mot de passe" name="mdp2" id="mdp2"
+                                                                     [(ngModel)]="checkMdp"
+                                                                     #confirmationPasswordMesInfos="ngModel">
+          <div
+            *ngIf="confirmationPasswordMesInfos.touched && passwordMesInfos.touched && confirmationPasswordMesInfos.dirty && passwordMesInfos.dirty && confirmationPasswordMesInfos.value != passwordMesInfos.value && confirmationPasswordMesInfos.value!=''"
+            class="alert alert-danger">
+            <div> Mot de passe et la confirmation du mot de passe ne correpondent pas.</div>
+          </div>
+        </div>
+        <p><label for="name">Nom : </label><input type="text" class="form-control" placeholder="Nom" name="name"
+                                                  id="name" [(ngModel)]="modelUser.name"></p>
+        <p><label for="firstname">Prenom : </label><input type="text" class="form-control" placeholder="Prenom"
+                                                          name="firstname" id="firstname"
+                                                          [(ngModel)]="modelUser.firstname"></p>
+        <p><label for="address">Adresse : </label><input type="text" class="form-control" placeholder="Adresse"
+                                                         name="address" id="address" [(ngModel)]="modelUser.address">
+        </p>
+        <div class="col text-center">
+          <button class="btn btn-primary buttonCenter" type="submit">Modifier ses données</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

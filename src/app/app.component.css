@@ -1,0 +1,13 @@
+#leftSide{
+  background: linear-gradient(to bottom, #ffcc99 0%, #66ccff 100%);
+  min-height:100vh;
+}
+
+#rightSide{
+  background: linear-gradient(to bottom, #ffcc99 0%, #66ccff 100%);
+}
+
+
+#container {
+  width: 99%;
+}

@@ -1,0 +1,63 @@
+<div class="card border-info mb-3" *ngIf="display">
+  <div class="card-header">
+    <div class="row">
+      <div class="col">
+        <button (click)="onItemListClick()" class="btn btn-light btn-block" type="button">
+          {{fieldOne}}
+        </button>
+      </div>
+      <div class="col-4">
+        <ng-container *ngIf="isItem; then itemButton; else userButton"></ng-container>
+        <ng-template #itemButton>
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-outline-success btn-lg btn-block" (click)="validateItem()" [disabled]="this.item.validate">Valider</button>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-outline-danger btn-lg btn-block" (click)="deleteItem()">Supprimer
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #userButton>
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block" (click)="banUser()" [disabled]="this.user.banned">Bannir</button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="card-body itemList-item" *ngIf="toggle">
+    <div class="row">
+      <div *ngIf="isItem" class="col-3">
+        <img [src]="item.picture" alt="Error">
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col-4">{{labelOne}}</div>
+          <div class="col-8">{{fieldOne}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">{{labelTwo}}</div>
+          <div class="col-8">{{fieldTwo}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">{{labelThree}}</div>
+          <div class="col-8">{{fieldThree}}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">{{labelFour}}</div>
+          <div class="col-8">{{fieldFour}}</div>
+        </div>
+      </div>
+      <div *ngIf="!isItem" class="col-3 centrerButton">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-outline-success btn-sm btn-block"
+                    [disabled]="this.user.roleList[0] === 'ADMIN' || this.user.banned" (click)="upgradeUserRole()">
+              Passer en administrateur
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

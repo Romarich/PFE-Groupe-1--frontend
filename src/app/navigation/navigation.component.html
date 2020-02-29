@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light justify-content-between" id="router-navbar" *ngIf="loginService.giveRole()">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active">
+          <img src="assets/bookswitch100x100.png" alt="Logo">
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link center-text-trick btn btn-outline-warning" [routerLink]="['/exchange']"
+           routerLinkActive="router-link-active">{{bookExchange}}</a>
+      </li>
+      <li class="nav-item active" *ngIf="!loginService.giveRole()">
+        <a class="nav-link center-text-trick btn btn-outline-warning" [routerLink]="['/register']"
+           routerLinkActive="router-link-active">{{register}}</a>
+      </li>
+
+      <li class="nav-item active" *ngIf="loginService.giveRole() == 'ADMIN'">
+        <a class="nav-link center-text-trick btn btn-outline-warning" [routerLink]="['/administration']"
+           routerLinkActive="router-link-active">{{administration}}</a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li ngbDropdown class="nav-item active dropdownNav">
+        <div>
+          <a ngbDropdownToggle class="center-text-trick" id="navbarDropdown"
+             style="max-width:50px;max-height:50px">{{this.login}}</a>
+        </div>
+        <div> Points: {{this.nbPoint}} </div>
+        <div ngbDropdownMenu aria-labelledby="navbarDropdown">
+          <a ngbDropdownItem [routerLink]="['/information']" routerLinkActive="router-link-active" >{{information}}</a>
+          <a ngbDropdownItem [routerLink]="['/history']" routerLinkActive="router-link-active" >{{history}}</a>
+          <div class="dropdown-divider"></div>
+          <a class="text-danger" ngbDropdownItem routerLinkActive="router-link-active" (click)="logout()">Déconnexion
+          </a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</nav>

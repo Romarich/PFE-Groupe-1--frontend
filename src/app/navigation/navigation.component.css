@@ -1,0 +1,14 @@
+#router-navbar {
+  background-image: url("~src/assets/plancheDeBois.jpg");
+}
+.center-text-trick {
+  margin-top: 35px;
+  white-space: nowrap;
+  margin-right: 10px;
+  color: black;
+}
+
+.dropdownNav {
+  margin-top: 8px;
+  white-space: nowrap;
+}
