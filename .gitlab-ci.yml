@@ -1,0 +1,50 @@
+image: trion/ng-cli-karma
+
+variables:
+  DOCKER_DRIVER: overlay2
+  
+cache:
+  paths:
+    - node_modules/
+    - dist/
+    
+stages:
+  - build
+  - test
+  - deploy
+  - production
+
+build:
+  stage: build
+  script:
+    - rm ./package-lock.json
+    - npm install
+    - ./node_modules/@angular/cli/bin/ng build --progress false --prod
+
+test:
+  stage: test
+  script:
+    - ./node_modules/@angular/cli/bin/ng test --progress false --watch=false
+    - ./node_modules/@angular/cli/bin/ng e2e --progress false --watch=false
+  allow_failure: true # Should be removed later on
+
+development:
+  stage: deploy
+  image: ruby:2.2
+  cache: {}
+  only:
+    - master
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=pfe-groupe1-frontend --api-key=90421c5e-738e-4675-a999-a004853600b4
+
+production:
+  stage: production
+  image: ruby:2.2
+  cache: {}
+  only:
+    - master
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=pfe1-frontend --api-key=90421c5e-738e-4675-a999-a004853600b4
+  when: manual
